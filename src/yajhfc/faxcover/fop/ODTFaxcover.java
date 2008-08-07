@@ -106,8 +106,7 @@ public class ODTFaxcover extends FOPFaxcover {
 
 
         cov.pageCount = 55;
-        cov.pageLength = 297;
-        cov.pageWidth = 210;
+        cov.pageSize = utils.papersizes[0];
         cov.regarding = "Test fax";
         cov.sender = "Werner Meiﬂner";
 

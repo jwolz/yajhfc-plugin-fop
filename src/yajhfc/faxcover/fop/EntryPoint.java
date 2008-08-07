@@ -21,6 +21,9 @@ package yajhfc.faxcover.fop;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.zip.ZipFile;
 
 import javax.swing.AbstractAction;
@@ -28,6 +31,7 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -50,8 +54,15 @@ import yajhfc.Launcher;
 import yajhfc.PluginManager;
 import yajhfc.FormattedFile.FileFormat;
 import yajhfc.faxcover.Faxcover;
+import yajhfc.utils;
 
 public class EntryPoint {
+    
+    public static final String AppShortName = "YajHFC FOP and ODT plugin";
+    public static final String AppCopyright = "Copyright © 2008 by Jonas Wolz";
+    public static final String AppVersion = "0.1";
+    public static final String AuthorEMail = "jwolz@freenet.de";
+    public static final String HomepageURL = "http://yajhfc.berlios.de/"; 
     
     private static FopFactory fopFactory;
     
@@ -59,7 +70,7 @@ public class EntryPoint {
         Faxcover.supportedCoverFormats.put(FileFormat.FOP, FOPFaxcover.class);
         Faxcover.supportedCoverFormats.put(FileFormat.ODT, ODTFaxcover.class);
         
-        Action ODTtoFOAction = new AbstractAction() {
+        final Action ODTtoFOAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 File odt, fo;
@@ -72,7 +83,7 @@ public class EntryPoint {
                     return;
                 }
                 
-                fileChooser.setDialogTitle(_("Select FO file to save the converted ODT."));
+                fileChooser.setDialogTitle(_("Select FO file to save the converted ODT to"));
                 configureFileChooserForFileFormats(fileChooser, FileFormat.FOP);
                 
                 // Exchange the extension
@@ -96,9 +107,9 @@ public class EntryPoint {
                 }
             }
         };
-        ODTtoFOAction.putValue(Action.NAME, _("Covert ODT to XSL:FO..."));
+        ODTtoFOAction.putValue(Action.NAME, _("Convert ODT to XSL:FO..."));
        
-        Action ViewFOAction = new AbstractAction() {
+        final Action ViewFOAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 File fo;
@@ -120,7 +131,7 @@ public class EntryPoint {
         };
         ViewFOAction.putValue(Action.NAME, _("View XSL:FO file..."));
         
-        Action ViewODTAction = new AbstractAction() {
+        final Action ViewODTAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 File odt, fo = null;
@@ -151,13 +162,27 @@ public class EntryPoint {
         };
         ViewODTAction.putValue(Action.NAME, _("View ODT as XSL:FO file..."));
         
-        JMenu pluginMenu = new JMenu(_("XSL:FO and ODT utilities"));
-        pluginMenu.add(new JMenuItem(ViewFOAction));
-        pluginMenu.add(new JMenuItem(ViewODTAction));
-        pluginMenu.add(new JMenuItem(ODTtoFOAction));
+        final Action AboutFOPAction = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                final String aboutString = String.format(
+                        "%s\nVersion %s\n\n%s\n\nHomepage: %s\nE-Mail: %s",
+                        AppShortName, AppVersion, AppCopyright, HomepageURL, AuthorEMail);
+                JOptionPane.showMessageDialog(Launcher.application, aboutString, MessageFormat.format(_("About {0}"), AppShortName), JOptionPane.INFORMATION_MESSAGE);
+            }
+        };
+        AboutFOPAction.putValue(Action.NAME, _("About FOP Plugin..."));
         
-        PluginManager.pluginMenuEntries.add(pluginMenu);
-        
+        PluginManager.pluginMenuEntries.add(new PluginManager.PluginMenuCreator() {
+            public JMenuItem[] createMenuItems() {
+                JMenu pluginMenu = new JMenu(_("XSL:FO and ODT utilities"));
+                pluginMenu.add(new JMenuItem(ViewFOAction));
+                pluginMenu.add(new JMenuItem(ViewODTAction));
+                pluginMenu.add(new JMenuItem(ODTtoFOAction));
+                pluginMenu.add(new JMenuItem(AboutFOPAction));
+                return new JMenuItem[] { pluginMenu };
+            };
+        });
+
         return true;
     }
     
@@ -205,8 +230,37 @@ public class EntryPoint {
         transformer.transform(src, res);
     }
     
+    private static boolean triedMsgLoad = false;
+    private static ResourceBundle msgs = null;
     public static String _(String key) {
-        // TODO: Replace with non dummy implementation...
-        return key;
+        if (msgs == null)
+            if (triedMsgLoad)
+                return key;
+            else {
+                LoadMessages();
+                return _(key);
+            }                
+        else
+            try {
+                return msgs.getString(key);
+            } catch (Exception e) {
+                return key;
+            }
+    }
+    
+    private static void LoadMessages() {
+        triedMsgLoad = true;
+        
+        // Use special handling for english locale as we don't use
+        // a ResourceBundle for it
+        if (utils.getLocale().equals(Locale.ENGLISH)) {
+            msgs = null;
+        } else {
+            try {
+                msgs = ResourceBundle.getBundle("yajhfc.faxcover.fop.i18n.FOPMessages", utils.getLocale());
+            } catch (Exception e) {
+                msgs = null;
+            }
+        }
     }
 }
