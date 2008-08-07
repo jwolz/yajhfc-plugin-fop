@@ -32,6 +32,8 @@
 
    Contributor(s): Holger Hees hhees ( at ) systemconcept.de
    
+   Some small modifications by Jonas Wolz <jonas.wolz@freenet.de>
+   
  -->
 <xsl:stylesheet version="1.0"
 		xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"  
@@ -256,6 +258,26 @@
 						<!--<xsl:attribute name="margin-top"><xsl:value-of select="./@svg:y"/></xsl:attribute>-->
 					</xsl:if>
 					<xsl:attribute name="width"><xsl:value-of select="./@svg:width"/></xsl:attribute>
+				</xsl:when>
+				<xsl:when test="./@text:anchor-type='page'">
+					<xsl:attribute name="position">absolute</xsl:attribute>
+					<xsl:if test="./@svg:x or ./@svg:y">
+						<xsl:attribute name="left"><xsl:value-of select="number(substring-before(./@svg:x,'cm'))-2"/>cm</xsl:attribute>
+						<xsl:attribute name="margin-right">0cm</xsl:attribute>
+						<xsl:attribute name="top"><xsl:value-of select="number(substring-before(./@svg:y,'cm'))-2"/>cm</xsl:attribute>
+					</xsl:if>
+					<xsl:attribute name="width"><xsl:value-of select="./@svg:width"/></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="./@svg:height"/></xsl:attribute>
+				</xsl:when>
+				<xsl:when test="./@text:anchor-type='paragraph'">
+					<xsl:attribute name="position">absolute</xsl:attribute>
+					<xsl:if test="./@svg:x or ./@svg:y">
+						<xsl:attribute name="left"><xsl:value-of select="./@svg:x"/></xsl:attribute>
+						<xsl:attribute name="margin-right">0cm</xsl:attribute>
+						<xsl:attribute name="top"><xsl:value-of select="./@svg:y"/></xsl:attribute>
+					</xsl:if>
+					<xsl:attribute name="width"><xsl:value-of select="./@svg:width"/></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="./@svg:height"/></xsl:attribute>
 				</xsl:when>
 			</xsl:choose>				
 

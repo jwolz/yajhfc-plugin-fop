@@ -81,8 +81,8 @@ public class FOPFaxcover extends Faxcover {
         OutputStream out = null;
 
         try {
-            fopFactory.setPageHeight(String.format(Locale.US, "%.2fmm", pageLength));
-            fopFactory.setPageWidth(String.format(Locale.US, "%.2fmm", pageWidth));
+            fopFactory.setPageHeight(String.format(Locale.US, "%.2fmm", pageSize.size.height));
+            fopFactory.setPageWidth(String.format(Locale.US, "%.2fmm", pageSize.size.width));
 
             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
             configureFO2PDFUserAgent(foUserAgent);
@@ -335,8 +335,7 @@ public class FOPFaxcover extends Faxcover {
 //      }
 
         cov.pageCount = 55;
-        cov.pageLength = 297;
-        cov.pageWidth = 210;
+        cov.pageSize = utils.papersizes[0];
         cov.regarding = "Test fax";
         cov.sender = "Werner Meiﬂner";
 

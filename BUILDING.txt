@@ -1,0 +1,47 @@
+Building the YajHFC FOP Plugin from source
+==========================================
+
+1. Required software packages
+-----------------------------
+
+You will need to have the following software packages installed to build YajHFC:
+
+- A Java JDK, version >= 1.5.0 (http://java.sun.com/javase/downloads)
+- Apache Ant, version >= 1.7.0 (http://ant.apache.org/)
+- The Apache FOP framework, version >= 0.95beta (http://xmlgraphics.apache.org/fop/)
+- YajHFC itself, as JAR archive
+
+If you want to build from CVS or modify translations, you will also need:
+- GNU gettext (http://www.gnu.org/software/gettext/)
+
+2. Build instructions
+---------------------
+
+To build the YajHFC plugin, go to the source directory (the directory where build.xml
+and this file reside in) and perform the following steps:
+
+i)
+Edit the file build.properties to specify the location of the Apache FOP framework
+and the YajHFC JAR file.
+
+ii)
+Invoke the following command:
+
+ant dist
+
+This compiles the YajHFC plugin, creates the JAR file build/FOPPlugin.jar and
+the distribution build/FOPPlugin.zip.
+
+That file can be used just like the ZIP file downloaded from the YajHFC homepage.
+
+NOTES:
+~~~~~~
+
+Currently building the translations only works on a Unix-like system
+because a shell script is used in the build process (i18n/fmtall.sh). 
+Creating Windows batch (or VBS/JScript) files with the same functionality
+should be possible, however.
+Please also note that this is only a problem if you want to build from CVS
+(or modify translations) as the source archive contains precompiled
+translations.
+
