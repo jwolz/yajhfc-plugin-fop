@@ -1,3 +1,21 @@
+/*
+ * YAJHFC - Yet another Java Hylafax client
+ * Copyright (C) 2005-2008 Jonas Wolz
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 package yajhfc.faxcover.fop;
 
 import java.io.File;
@@ -24,10 +42,12 @@ import org.clazzes.odtransform.OdtTransformer;
 import org.clazzes.odtransform.ZipFileURIResolver;
 import org.xml.sax.SAXException;
 
-import yajhfc.faxcover.Faxcover;
 import yajhfc.utils;
+import yajhfc.FileConverter.ConversionException;
+import yajhfc.faxcover.Faxcover;
+import yajhfc.faxcover.MarkupFaxcover;
 
-public class ODTFaxcover extends FOPFaxcover {
+public class ODTFaxcover extends MarkupFaxcover {
     private static Logger log = Logger.getLogger(ODTFaxcover.class.getName());
     
     protected ZipFile odtZipfile;
@@ -83,19 +103,31 @@ public class ODTFaxcover extends FOPFaxcover {
     }
 
     @Override
-    protected void configureFO2PDFUserAgent(FOUserAgent userAgent) throws IOException {
-        userAgent.setURIResolver(new ZipFileURIResolver(getODTZipFile()));
+    public void makeCoverSheet(OutputStream out) throws IOException {
+        try {
+            createCoverSheet(new FileInputStream(foTempFile), out);
+        } catch (ConversionException e) {
+            throw new RuntimeException(e);
+        }
     }
+    
 
     @Override
-    public void makeCoverSheet(OutputStream out) throws IOException {
-        createCoverSheet(new FileInputStream(foTempFile), out);
+    protected void convertMarkupToHyla(File tempFile, OutputStream out)
+            throws IOException, ConversionException {
+        FOPFileConverter conv = FOPFileConverter.SHARED_INSTANCE;
+        
+        FOUserAgent ua = conv.getFopFactory().newFOUserAgent();
+        ua.setURIResolver(new ZipFileURIResolver(getODTZipFile()));
+        
+        conv.convertFOToPDF(tempFile, out, pageSize, ua);
     }
+    
 
     // Testing code:
     public static void main(String[] args) throws Exception {
         System.out.println("Creating cover page...");
-        Faxcover cov = new ODTFaxcover(new URL("file:/home/jonas/java/yajhfc/test.odt"));
+        Faxcover cov = new ODTFaxcover(new URL("file:/home/jonas/java/workspace/FOPPlugin/dist/examples/cover.odt"));
 
         cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
         cov.fromCompany = "foo Ü&Ö OHG";
@@ -117,7 +149,9 @@ public class ODTFaxcover extends FOPFaxcover {
         cov.toVoiceNumber = "4545454";
 
         try {
-            cov.makeCoverSheet(new FileOutputStream("/tmp/test.pdf"));
+            String outName = "/tmp/testODT.pdf";
+            cov.makeCoverSheet(new FileOutputStream(outName));
+            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -125,4 +159,5 @@ public class ODTFaxcover extends FOPFaxcover {
         }
 
     }
+    
 }
