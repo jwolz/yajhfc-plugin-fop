@@ -50,6 +50,7 @@ import org.clazzes.odtransform.ZipFileURIResolver;
 
 import yajhfc.ExampleFileFilter;
 import yajhfc.ExceptionDialog;
+import yajhfc.FormattedFile;
 import yajhfc.Launcher;
 import yajhfc.PluginManager;
 import yajhfc.FormattedFile.FileFormat;
@@ -69,6 +70,8 @@ public class EntryPoint {
     public static boolean init() {
         Faxcover.supportedCoverFormats.put(FileFormat.FOP, FOPFaxcover.class);
         Faxcover.supportedCoverFormats.put(FileFormat.ODT, ODTFaxcover.class);
+        
+        FormattedFile.fileConverters.put(FileFormat.FOP, FOPFileConverter.SHARED_INSTANCE);
         
         final Action ODTtoFOAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
