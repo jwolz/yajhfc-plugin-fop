@@ -34,6 +34,7 @@ public class FOPFaxcover extends MarkupFaxcover {
 
     public FOPFaxcover(URL coverTemplate) {
         super(coverTemplate); 
+        //newLineReplacement = "\u2028";
     }
     
     @Override

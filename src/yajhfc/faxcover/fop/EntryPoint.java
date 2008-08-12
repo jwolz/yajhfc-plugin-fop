@@ -196,7 +196,7 @@ public class EntryPoint {
         
         FileFilter firstFilter = null;
         for (FileFormat ff : formats) {
-            FileFilter newFilter = new ExampleFileFilter(ff.getPossibleExtension(), ff.getDescription());
+            FileFilter newFilter = new ExampleFileFilter(ff.getPossibleExtensions(), ff.getDescription());
             if (firstFilter == null) {
                 firstFilter = newFilter;
             }

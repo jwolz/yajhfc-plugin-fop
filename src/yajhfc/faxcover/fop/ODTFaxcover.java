@@ -45,9 +45,8 @@ import org.xml.sax.SAXException;
 import yajhfc.utils;
 import yajhfc.FileConverter.ConversionException;
 import yajhfc.faxcover.Faxcover;
-import yajhfc.faxcover.MarkupFaxcover;
 
-public class ODTFaxcover extends MarkupFaxcover {
+public class ODTFaxcover extends FOPFaxcover {
     private static Logger log = Logger.getLogger(ODTFaxcover.class.getName());
     
     protected ZipFile odtZipfile;
