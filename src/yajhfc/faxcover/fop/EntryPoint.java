@@ -75,7 +75,7 @@ public class EntryPoint {
         
         final Action ODTtoFOAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File odt, fo;
                 
                 fileChooser.setDialogTitle(_("Select ODT file to convert..."));
@@ -114,7 +114,7 @@ public class EntryPoint {
        
         final Action ViewFOAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File fo;
                 
                 fileChooser.setDialogTitle(_("Select FO file to view"));
@@ -136,7 +136,7 @@ public class EntryPoint {
         
         final Action ViewODTAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File odt, fo = null;
                 
                 fileChooser.setDialogTitle(_("Select ODT file to view"));
