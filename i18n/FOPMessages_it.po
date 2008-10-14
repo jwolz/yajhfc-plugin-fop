@@ -3,68 +3,68 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 12:02+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2008-10-13 13:24+0100\n"
+"Last-Translator: Raffaele Dell'Aglio <rdellaglio@degitech.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:81
 msgid "Select ODT file to convert..."
-msgstr ""
+msgstr "Seleziona il file ODT da convertire..."
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:89
 msgid "Select FO file to save the converted ODT to"
-msgstr ""
+msgstr "Selezionare il file FO da salvare convertito in ODT"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:109
 msgid "Error converting the ODT file:"
-msgstr ""
+msgstr "Errore di conversione del file OTD:"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:113
 msgid "Convert ODT to XSL:FO..."
-msgstr ""
+msgstr "Converti OTD in XSL:FO..."
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:120
 msgid "Select FO file to view"
-msgstr ""
+msgstr "Seleziona il file FO da visualizzare"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:131
 msgid "Error viewing the FO file:"
-msgstr ""
+msgstr "Errore di visualizzazione del file FO:"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:135
 msgid "View XSL:FO file..."
-msgstr ""
+msgstr "Visualizzazione del file XSL:FO..."
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:142
 msgid "Select ODT file to view"
-msgstr ""
+msgstr "Seleziona il file ODT da visualizzare"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:159
 msgid "Error viewing the ODT file:"
-msgstr ""
+msgstr "Errore di visualizzazione del file ODT:"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:166
 msgid "View ODT as XSL:FO file..."
-msgstr ""
+msgstr "Visualizza ODT come file XSL:FO..."
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:173
 #, java-format
 msgid "About {0}"
-msgstr ""
+msgstr "About {0}"
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:176
 msgid "About FOP Plugin..."
-msgstr ""
+msgstr "About Plugin FOP..."
 
 #: ../src/yajhfc/faxcover/fop/EntryPoint.java:180
 msgid "XSL:FO and ODT utilities"
-msgstr ""
+msgstr "Utility XSL:FO e ODT"
+
