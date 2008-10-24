@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-10-13 12:02+0200\n"
+"PO-Revision-Date: 2008-10-24 18:50+0200\n"
+"Last-Translator: Mesut GÜLER <maxut@yahoo.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:81
+msgid "Select ODT file to convert..."
+msgstr "Dönüştürülecek ODT dosyasını seç..."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:89
+msgid "Select FO file to save the converted ODT to"
+msgstr "ODT dönüştürülmüş olarak kaydetmek için FO dosyası seçiniz."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:109
+msgid "Error converting the ODT file:"
+msgstr "ODT dosyası dönüştürmede hata:"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:113
+msgid "Convert ODT to XSL:FO..."
+msgstr "ODT'yi XSL:FO'ya dönüştür..."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:120
+msgid "Select FO file to view"
+msgstr "Görüntülenecek FO dosyasını seç"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:131
+msgid "Error viewing the FO file:"
+msgstr "FO dosyasını görüntülede hata:"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:135
+msgid "View XSL:FO file..."
+msgstr "XSL:FO dosyası görüntüle..."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:142
+msgid "Select ODT file to view"
+msgstr "Görünütülenecek ODT dosyasını seç"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:159
+msgid "Error viewing the ODT file:"
+msgstr "ODT dosyası görüntülemede hata:"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:166
+msgid "View ODT as XSL:FO file..."
+msgstr "ODT dosyalarını XSL:FO olarak göster..."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:173
+#, java-format
+msgid "About {0}"
+msgstr "{0} Hakkında"
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:176
+msgid "About FOP Plugin..."
+msgstr "FOP eklentisi hakkında..."
+
+#: ../src/yajhfc/faxcover/fop/EntryPoint.java:180
+msgid "XSL:FO and ODT utilities"
+msgstr "XSL:FO ve ODT araçları"
+
