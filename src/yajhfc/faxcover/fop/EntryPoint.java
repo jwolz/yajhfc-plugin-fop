@@ -49,19 +49,20 @@ import org.apache.fop.apps.MimeConstants;
 import org.clazzes.odtransform.ZipFileURIResolver;
 
 import yajhfc.ExampleFileFilter;
+import yajhfc.ExcDialogAbstractAction;
 import yajhfc.ExceptionDialog;
 import yajhfc.FormattedFile;
 import yajhfc.Launcher;
 import yajhfc.PluginManager;
+import yajhfc.utils;
 import yajhfc.FormattedFile.FileFormat;
 import yajhfc.faxcover.Faxcover;
-import yajhfc.utils;
 
 public class EntryPoint {
     
     public static final String AppShortName = "YajHFC FOP and ODT plugin";
     public static final String AppCopyright = "Copyright © 2008 by Jonas Wolz";
-    public static final String AppVersion = "0.1";
+    public static final String AppVersion = "0.1.1";
     public static final String AuthorEMail = "jwolz@freenet.de";
     public static final String HomepageURL = "http://yajhfc.berlios.de/"; 
     
@@ -73,8 +74,9 @@ public class EntryPoint {
         
         FormattedFile.fileConverters.put(FileFormat.FOP, FOPFileConverter.SHARED_INSTANCE);
         
-        final Action ODTtoFOAction = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+        final Action ODTtoFOAction = new ExcDialogAbstractAction() {
+            @Override
+            protected void actualActionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File odt, fo;
                 
@@ -112,8 +114,9 @@ public class EntryPoint {
         };
         ODTtoFOAction.putValue(Action.NAME, _("Convert ODT to XSL:FO..."));
        
-        final Action ViewFOAction = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+        final Action ViewFOAction = new ExcDialogAbstractAction() {
+            @Override
+            protected void actualActionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File fo;
                 
@@ -134,8 +137,9 @@ public class EntryPoint {
         };
         ViewFOAction.putValue(Action.NAME, _("View XSL:FO file..."));
         
-        final Action ViewODTAction = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+        final Action ViewODTAction = new ExcDialogAbstractAction() {
+            @Override
+            protected void actualActionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new yajhfc.util.SafeJFileChooser();
                 File odt, fo = null;
                 
