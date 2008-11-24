@@ -41,9 +41,9 @@ import org.apache.fop.apps.FormattingResults;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.fop.apps.PageSequenceResults;
 
-import yajhfc.FileConverter;
 import yajhfc.PaperSize;
-import yajhfc.utils;
+import yajhfc.Utils;
+import yajhfc.file.FileConverter;
 
 /**
  * @author jonas
@@ -105,7 +105,7 @@ public class FOPFileConverter implements FileConverter {
             // Start XSLT transformation and FOP processing
             transformer.transform(src, res);
 
-            if (utils.debugMode) {
+            if (Utils.debugMode) {
                 // Result processing
                 FormattingResults foResults = fop.getResults();
                 java.util.List pageSequences = foResults.getPageSequences();
