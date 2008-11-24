@@ -19,16 +19,12 @@ package yajhfc.faxcover.fop;
  */
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 
-import yajhfc.utils;
-import yajhfc.FileConverter.ConversionException;
-import yajhfc.faxcover.Faxcover;
 import yajhfc.faxcover.MarkupFaxcover;
+import yajhfc.file.FileConverter.ConversionException;
 
 public class FOPFaxcover extends MarkupFaxcover {
 
@@ -43,50 +39,50 @@ public class FOPFaxcover extends MarkupFaxcover {
         FOPFileConverter.SHARED_INSTANCE.convertToHylaFormat(tempFile, out, pageSize);
     }
     
-    // Testing code:
-    public static void main(String[] args) throws Exception {
-        System.out.println("Creating cover page...");
-        Faxcover cov = new FOPFaxcover(new URL("file:/home/jonas/java/yajhfc/test.fo"));
-
-        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
-        cov.fromCompany = "foo Ü&Ö OHG";
-        cov.fromFaxNumber = "989898";
-        cov.fromLocation = "Bardorf";
-        cov.fromVoiceNumber = "515616";
-        cov.fromMailAddress = "a@bc.de";
-
-        //cov.pageCount = 10;
-//      String[] docs = { "/home/jonas/mozilla.ps", "/home/jonas/nssg.pdf" };
-//      for (int i=0; i<docs.length; i++)
-//      try {
-//      System.out.println(docs[i] + " pages: " + cov.estimatePostscriptPages(new FileInputStream(docs[i])));
-//      } catch (FileNotFoundException e) {
-//      e.printStackTrace();
-//      } catch (IOException e) {
-//      e.printStackTrace();
-//      }
-
-        cov.pageCount = 55;
-        cov.pageSize = utils.papersizes[0];
-        cov.regarding = "Test fax";
-        cov.sender = "Werner Meißner";
-
-        cov.toCompany = "Bâr GmbH & Co. KGaA";
-        cov.toFaxNumber = "87878787";
-        cov.toLocation = "Foostädtle";
-        cov.toName = "Otto Müller";
-        cov.toVoiceNumber = "4545454";
-
-        try {
-            String outName = "/tmp/test.pdf";
-            cov.makeCoverSheet(new FileOutputStream(outName));
-            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    // Testing code:
+//    public static void main(String[] args) throws Exception {
+//        System.out.println("Creating cover page...");
+//        Faxcover cov = new FOPFaxcover(new URL("file:/home/jonas/java/yajhfc/test.fo"));
+//
+//        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
+//        cov.fromCompany = "foo Ü&Ö OHG";
+//        cov.fromFaxNumber = "989898";
+//        cov.fromLocation = "Bardorf";
+//        cov.fromVoiceNumber = "515616";
+//        cov.fromMailAddress = "a@bc.de";
+//
+//        //cov.pageCount = 10;
+////      String[] docs = { "/home/jonas/mozilla.ps", "/home/jonas/nssg.pdf" };
+////      for (int i=0; i<docs.length; i++)
+////      try {
+////      System.out.println(docs[i] + " pages: " + cov.estimatePostscriptPages(new FileInputStream(docs[i])));
+////      } catch (FileNotFoundException e) {
+////      e.printStackTrace();
+////      } catch (IOException e) {
+////      e.printStackTrace();
+////      }
+//
+//        cov.pageCount = 55;
+//        cov.pageSize = Utils.papersizes[0];
+//        cov.regarding = "Test fax";
+//        cov.sender = "Werner Meißner";
+//
+//        cov.toCompany = "Bâr GmbH & Co. KGaA";
+//        cov.toFaxNumber = "87878787";
+//        cov.toLocation = "Foostädtle";
+//        cov.toName = "Otto Müller";
+//        cov.toVoiceNumber = "4545454";
+//
+//        try {
+//            String outName = "/tmp/test.pdf";
+//            cov.makeCoverSheet(new FileOutputStream(outName));
+//            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
 
