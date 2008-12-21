@@ -25,6 +25,7 @@ import java.net.URL;
 
 import yajhfc.faxcover.MarkupFaxcover;
 import yajhfc.file.FileConverter.ConversionException;
+import yajhfc.file.FormattedFile.FileFormat;
 
 public class FOPFaxcover extends MarkupFaxcover {
 
@@ -36,7 +37,7 @@ public class FOPFaxcover extends MarkupFaxcover {
     @Override
     protected void convertMarkupToHyla(File tempFile, OutputStream out)
             throws IOException, ConversionException {
-        FOPFileConverter.SHARED_INSTANCE.convertToHylaFormat(tempFile, out, pageSize);
+        FOPFileConverter.SHARED_INSTANCE.convertToHylaFormat(tempFile, out, pageSize, FileFormat.PDF);
     }
     
 //    // Testing code:

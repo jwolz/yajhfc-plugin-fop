@@ -44,6 +44,7 @@ import org.apache.fop.apps.PageSequenceResults;
 import yajhfc.PaperSize;
 import yajhfc.Utils;
 import yajhfc.file.FileConverter;
+import yajhfc.file.FormattedFile.FileFormat;
 
 /**
  * @author jonas
@@ -72,25 +73,26 @@ public class FOPFileConverter implements FileConverter {
     /* (non-Javadoc)
      * @see yajhfc.FileConverter#convertToHylaFormat(java.io.File, java.io.OutputStream, yajhfc.PaperSize)
      */
-    public void convertToHylaFormat(File inFile, OutputStream destination, PaperSize pageSize) throws ConversionException, IOException {
-        convertFOToPDF(inFile, destination, pageSize, getFopFactory().newFOUserAgent());
+    public void convertToHylaFormat(File inFile, OutputStream destination, PaperSize pageSize, FileFormat desiredFormat) throws ConversionException, IOException {
+        String fopFormat = (desiredFormat == FileFormat.PostScript) ? MimeConstants.MIME_POSTSCRIPT : MimeConstants.MIME_PDF;
+        convertFOToPDF(inFile, destination, pageSize, getFopFactory().newFOUserAgent(), fopFormat);
     }
     
     @SuppressWarnings("unchecked")
-    public void convertFOToPDF(File inFile, OutputStream destination, PaperSize pageSize, FOUserAgent foUserAgent) throws ConversionException, IOException {
+    public void convertFOToPDF(File inFile, OutputStream destination, PaperSize pageSize, FOUserAgent foUserAgent, String desiredFormat) throws ConversionException, IOException {
         OutputStream out = null;
 
         try {
             FopFactory fopFactory = getFopFactory();
-            fopFactory.setPageHeight(String.format(Locale.US, "%dmm", pageSize.size.height));
-            fopFactory.setPageWidth(String.format(Locale.US, "%dmm", pageSize.size.width));
+            fopFactory.setPageHeight(String.format(Locale.US, "%dmm", pageSize.getSize().height));
+            fopFactory.setPageWidth(String.format(Locale.US, "%dmm", pageSize.getSize().width));
 
             // Setup output stream.  Note: Using BufferedOutputStream
             // for performance reasons (helpful with FileOutputStreams).
             out = new BufferedOutputStream(destination);
 
             // Construct fop with desired output format
-            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
+            Fop fop = fopFactory.newFop(desiredFormat, foUserAgent, out);
 
             // Setup JAXP using identity transformer
             TransformerFactory factory = TransformerFactory.newInstance();

@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.MimeConstants;
 import org.clazzes.odtransform.OdtTransformer;
 import org.clazzes.odtransform.ZipFileURIResolver;
 import org.xml.sax.SAXException;
@@ -117,7 +118,7 @@ public class ODTFaxcover extends FOPFaxcover {
         FOUserAgent ua = conv.getFopFactory().newFOUserAgent();
         ua.setURIResolver(new ZipFileURIResolver(getODTZipFile()));
         
-        conv.convertFOToPDF(tempFile, out, pageSize, ua);
+        conv.convertFOToPDF(tempFile, out, pageSize, ua, MimeConstants.MIME_PDF);
     }
     
 
