@@ -62,7 +62,7 @@ public class EntryPoint {
     
     public static final String AppShortName = "YajHFC FOP and ODT plugin";
     public static final String AppCopyright = "Copyright © 2008 by Jonas Wolz";
-    public static final String AppVersion = "0.1.1";
+    public static final String AppVersion = "0.1.2";
     public static final String AuthorEMail = "jwolz@freenet.de";
     public static final String HomepageURL = "http://yajhfc.berlios.de/"; 
     
@@ -210,7 +210,7 @@ public class EntryPoint {
         fileChooser.setFileFilter(firstFilter);
     }
     
-    private static FopFactory getFopFactory() {
+    static FopFactory getFopFactory() {
         // configure fopFactory as desired
         if (fopFactory == null) {
             fopFactory = FopFactory.newInstance();
