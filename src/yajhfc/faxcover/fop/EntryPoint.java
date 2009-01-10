@@ -49,11 +49,12 @@ import org.apache.fop.apps.MimeConstants;
 import org.clazzes.odtransform.ZipFileURIResolver;
 
 import yajhfc.Launcher2;
-import yajhfc.PluginManager;
 import yajhfc.Utils;
 import yajhfc.faxcover.Faxcover;
 import yajhfc.file.FormattedFile;
 import yajhfc.file.FormattedFile.FileFormat;
+import yajhfc.plugin.PluginManager;
+import yajhfc.plugin.PluginUI;
 import yajhfc.util.ExampleFileFilter;
 import yajhfc.util.ExcDialogAbstractAction;
 import yajhfc.util.ExceptionDialog;
@@ -179,7 +180,7 @@ public class EntryPoint {
         };
         AboutFOPAction.putValue(Action.NAME, _("About FOP Plugin..."));
         
-        PluginManager.pluginMenuEntries.add(new PluginManager.PluginMenuCreator() {
+        PluginManager.pluginUIs.add(new PluginUI() {
             public JMenuItem[] createMenuItems() {
                 JMenu pluginMenu = new JMenu(_("XSL:FO and ODT utilities"));
                 pluginMenu.add(new JMenuItem(ViewFOAction));
