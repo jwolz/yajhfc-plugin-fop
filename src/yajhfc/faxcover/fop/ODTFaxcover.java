@@ -20,10 +20,12 @@ package yajhfc.faxcover.fop;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 import java.util.zip.ZipFile;
@@ -42,8 +44,12 @@ import org.clazzes.odtransform.OdtTransformer;
 import org.clazzes.odtransform.ZipFileURIResolver;
 import org.xml.sax.SAXException;
 
+import yajhfc.PaperSize;
 import yajhfc.Utils;
+import yajhfc.faxcover.Faxcover;
 import yajhfc.file.FileConverter.ConversionException;
+import yajhfc.phonebook.PBEntryField;
+import yajhfc.phonebook.convrules.DefaultPBEntryFieldContainer;
 
 public class ODTFaxcover extends FOPFaxcover {
     private static Logger log = Logger.getLogger(ODTFaxcover.class.getName());
@@ -60,17 +66,21 @@ public class ODTFaxcover extends FOPFaxcover {
         foTempFile = File.createTempFile("fromodt", ".fo");
         foTempFile.deleteOnExit();
         FileOutputStream outStream = new FileOutputStream(foTempFile);
-        transformOdtToFO(getODTZipFile(), outStream);
+        try {
+            transformOdtToFO(getODTZipFile(), outStream);
+        } catch (URISyntaxException e) {
+            throw (IOException)new IOException("Invalid URI").initCause(e);
+        }
         outStream.close();
     }
     
-    protected ZipFile getODTZipFile() throws IOException {
+    protected ZipFile getODTZipFile() throws IOException, URISyntaxException {
         if (odtZipfile == null) {
             if (coverTemplate.getProtocol().equals("file")) {
                 if (Utils.debugMode) {
                     log.info("Creating ZipFile for URL " + coverTemplate);
                 }
-                String path = coverTemplate.getPath();
+                File path = new File(coverTemplate.toURI());
                 if (Utils.debugMode) {
                     log.info("Path is " + path);
                 }
@@ -116,46 +126,61 @@ public class ODTFaxcover extends FOPFaxcover {
         FOPFileConverter conv = FOPFileConverter.SHARED_INSTANCE;
         
         FOUserAgent ua = conv.getFopFactory().newFOUserAgent();
-        ua.setURIResolver(new ZipFileURIResolver(getODTZipFile()));
+        try {
+            ua.setURIResolver(new ZipFileURIResolver(getODTZipFile()));
+        } catch (URISyntaxException e) {
+            throw new ConversionException("Invalid URI", e);
+        }
         
         conv.convertFOToPDF(tempFile, out, pageSize, ua, MimeConstants.MIME_PDF);
     }
     
 
-//    // Testing code:
-//    public static void main(String[] args) throws Exception {
-//        System.out.println("Creating cover page...");
-//        Faxcover cov = new ODTFaxcover(new URL("file:/home/jonas/java/workspace/FOPPlugin/dist/examples/cover.odt"));
-//
-//        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
-//        cov.fromCompany = "foo Ü&Ö OHG";
-//        cov.fromFaxNumber = "989898";
-//        cov.fromLocation = "Bardorf";
-//        cov.fromVoiceNumber = "515616";
-//        cov.fromMailAddress = "a@bc.de";
-//
-//
-//        cov.pageCount = 55;
-//        cov.pageSize = Utils.papersizes[0];
-//        cov.regarding = "Test fax";
-//        cov.sender = "Werner Meißner";
-//
-//        cov.toCompany = "Bâr GmbH & Co. KGaA";
-//        cov.toFaxNumber = "87878787";
-//        cov.toLocation = "Foostädtle";
-//        cov.toName = "Otto Müller";
-//        cov.toVoiceNumber = "4545454";
-//
-//        try {
-//            String outName = "/tmp/testODT.pdf";
-//            cov.makeCoverSheet(new FileOutputStream(outName));
-//            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    // Testing code:
+    public static void main(String[] args) throws Exception {
+        System.out.println("Creating cover page...");
+        Faxcover cov = new ODTFaxcover(new File("/home/jonas/test/directory with a space/test.odt").toURI().toURL());
+
+        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
+        cov.fromData = new DefaultPBEntryFieldContainer();
+        cov.toData = new DefaultPBEntryFieldContainer();
+        cov.fromData.setField(PBEntryField.Company, "foo Ü&Ö OHG");
+        cov.fromData.setField(PBEntryField.FaxNumber, "989898");
+        cov.fromData.setField(PBEntryField.Location, "Bardorf");
+        cov.fromData.setField(PBEntryField.VoiceNumber, "515616");
+        cov.fromData.setField(PBEntryField.EMailAddress, "a@bc.de");
+
+        //cov.pageCount = 10;
+//      String[] docs = { "/home/jonas/mozilla.ps", "/home/jonas/nssg.pdf" };
+//      for (int i=0; i<docs.length; i++)
+//      try {
+//      System.out.println(docs[i] + " pages: " + cov.estimatePostscriptPages(new FileInputStream(docs[i])));
+//      } catch (FileNotFoundException e) {
+//      e.printStackTrace();
+//      } catch (IOException e) {
+//      e.printStackTrace();
+//      }
+
+        cov.pageCount = 55;
+        cov.pageSize = PaperSize.A4;
+        cov.regarding = "Test fax";
+        cov.fromData.setField(PBEntryField.Name, "Werner Meißner");
+
+        cov.toData.setField(PBEntryField.Company, "Bâr GmbH & Co. KGaA");
+        cov.toData.setField(PBEntryField.FaxNumber, "87878787");
+        cov.toData.setField(PBEntryField.Location, "Foostädtle");
+        cov.toData.setField(PBEntryField.Name, "Otto Müller");
+        cov.toData.setField(PBEntryField.VoiceNumber, "4545454");
+
+        try {
+            String outName = "/tmp/test.pdf";
+            cov.makeCoverSheet(new FileOutputStream(outName));
+            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
 }
