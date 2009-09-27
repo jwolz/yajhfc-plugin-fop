@@ -48,11 +48,11 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.clazzes.odtransform.ZipFileURIResolver;
 
-import yajhfc.Launcher2;
 import yajhfc.Utils;
 import yajhfc.faxcover.Faxcover;
 import yajhfc.file.FormattedFile;
 import yajhfc.file.FormattedFile.FileFormat;
+import yajhfc.launch.Launcher2;
 import yajhfc.plugin.PluginManager;
 import yajhfc.plugin.PluginUI;
 import yajhfc.util.ExampleFileFilter;
@@ -63,7 +63,7 @@ public class EntryPoint {
     
     public static final String AppShortName = "YajHFC FOP and ODT plugin";
     public static final String AppCopyright = "Copyright © 2008-2009 by Jonas Wolz";
-    public static final String AppVersion = "0.1.3";
+    public static final String AppVersion = "0.1.4";
     public static final String AuthorEMail = "jwolz@freenet.de";
     public static final String HomepageURL = "http://yajhfc.berlios.de/"; 
     
@@ -83,7 +83,7 @@ public class EntryPoint {
                 
                 fileChooser.setDialogTitle(_("Select ODT file to convert..."));
                 configureFileChooserForFileFormats(fileChooser, FileFormat.ODT);
-                if (fileChooser.showOpenDialog(Launcher2.application) == JFileChooser.APPROVE_OPTION) {
+                if (fileChooser.showOpenDialog(Launcher2.application.getFrame()) == JFileChooser.APPROVE_OPTION) {
                     odt = fileChooser.getSelectedFile();
                 } else {
                     return;
@@ -100,7 +100,7 @@ public class EntryPoint {
                     fileChooser.setSelectedFile(new File(odt.getParentFile(), newName));
                 }
                 
-                if (fileChooser.showSaveDialog(Launcher2.application) == JFileChooser.APPROVE_OPTION) {
+                if (fileChooser.showSaveDialog(Launcher2.application.getFrame()) == JFileChooser.APPROVE_OPTION) {
                     fo = fileChooser.getSelectedFile();
                 } else {
                     return;
@@ -109,7 +109,7 @@ public class EntryPoint {
                 try {
                     ODTFaxcover.transformOdtToFO(new ZipFile(odt), new FileOutputStream(fo));
                 } catch (Exception ex) {
-                    ExceptionDialog.showExceptionDialog(Launcher2.application, _("Error converting the ODT file:"), ex);
+                    ExceptionDialog.showExceptionDialog(Launcher2.application.getFrame(), _("Error converting the ODT file:"), ex);
                 }
             }
         };
@@ -123,7 +123,7 @@ public class EntryPoint {
                 
                 fileChooser.setDialogTitle(_("Select FO file to view"));
                 configureFileChooserForFileFormats(fileChooser, FileFormat.FOP);
-                if (fileChooser.showOpenDialog(Launcher2.application) == JFileChooser.APPROVE_OPTION) {
+                if (fileChooser.showOpenDialog(Launcher2.application.getFrame()) == JFileChooser.APPROVE_OPTION) {
                     fo = fileChooser.getSelectedFile();
                 } else {
                     return;
@@ -132,7 +132,7 @@ public class EntryPoint {
                 try {
                     viewFOFile(fo, null);
                 } catch (Exception ex) {
-                    ExceptionDialog.showExceptionDialog(Launcher2.application, _("Error viewing the FO file:"), ex);
+                    ExceptionDialog.showExceptionDialog(Launcher2.application.getFrame(), _("Error viewing the FO file:"), ex);
                 }
             }
         };
@@ -146,7 +146,7 @@ public class EntryPoint {
                 
                 fileChooser.setDialogTitle(_("Select ODT file to view"));
                 configureFileChooserForFileFormats(fileChooser, FileFormat.ODT);
-                if (fileChooser.showOpenDialog(Launcher2.application) == JFileChooser.APPROVE_OPTION) {
+                if (fileChooser.showOpenDialog(Launcher2.application.getFrame()) == JFileChooser.APPROVE_OPTION) {
                     odt = fileChooser.getSelectedFile();
                 } else {
                     return;
@@ -161,7 +161,7 @@ public class EntryPoint {
                     userAgent.setURIResolver(new ZipFileURIResolver(odtZIP));                   
                     viewFOFile(fo, userAgent);;
                 } catch (Exception ex) {
-                    ExceptionDialog.showExceptionDialog(Launcher2.application, _("Error viewing the ODT file:"), ex);
+                    ExceptionDialog.showExceptionDialog(Launcher2.application.getFrame(), _("Error viewing the ODT file:"), ex);
                 } finally {
                     if (fo != null)
                         fo.delete();
@@ -175,7 +175,7 @@ public class EntryPoint {
                 final String aboutString = String.format(
                         "%s\nVersion %s\n\n%s\n\nHomepage: %s\nE-Mail: %s",
                         AppShortName, AppVersion, AppCopyright, HomepageURL, AuthorEMail);
-                JOptionPane.showMessageDialog(Launcher2.application, aboutString, MessageFormat.format(_("About {0}"), AppShortName), JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(Launcher2.application.getFrame(), aboutString, MessageFormat.format(_("About {0}"), AppShortName), JOptionPane.INFORMATION_MESSAGE);
             }
         };
         AboutFOPAction.putValue(Action.NAME, _("About FOP Plugin..."));
