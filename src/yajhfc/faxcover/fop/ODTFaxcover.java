@@ -20,7 +20,6 @@ package yajhfc.faxcover.fop;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,12 +43,8 @@ import org.clazzes.odtransform.OdtTransformer;
 import org.clazzes.odtransform.ZipFileURIResolver;
 import org.xml.sax.SAXException;
 
-import yajhfc.PaperSize;
 import yajhfc.Utils;
-import yajhfc.faxcover.Faxcover;
 import yajhfc.file.FileConverter.ConversionException;
-import yajhfc.phonebook.PBEntryField;
-import yajhfc.phonebook.convrules.DefaultPBEntryFieldContainer;
 
 public class ODTFaxcover extends FOPFaxcover {
     private static Logger log = Logger.getLogger(ODTFaxcover.class.getName());
@@ -136,51 +131,51 @@ public class ODTFaxcover extends FOPFaxcover {
     }
     
 
-    // Testing code:
-    public static void main(String[] args) throws Exception {
-        System.out.println("Creating cover page...");
-        Faxcover cov = new ODTFaxcover(new File("/home/jonas/test/directory with a space/test.odt").toURI().toURL());
-
-        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
-        cov.fromData = new DefaultPBEntryFieldContainer();
-        cov.toData = new DefaultPBEntryFieldContainer();
-        cov.fromData.setField(PBEntryField.Company, "foo Ü&Ö OHG");
-        cov.fromData.setField(PBEntryField.FaxNumber, "989898");
-        cov.fromData.setField(PBEntryField.Location, "Bardorf");
-        cov.fromData.setField(PBEntryField.VoiceNumber, "515616");
-        cov.fromData.setField(PBEntryField.EMailAddress, "a@bc.de");
-
-        //cov.pageCount = 10;
-//      String[] docs = { "/home/jonas/mozilla.ps", "/home/jonas/nssg.pdf" };
-//      for (int i=0; i<docs.length; i++)
-//      try {
-//      System.out.println(docs[i] + " pages: " + cov.estimatePostscriptPages(new FileInputStream(docs[i])));
-//      } catch (FileNotFoundException e) {
-//      e.printStackTrace();
-//      } catch (IOException e) {
-//      e.printStackTrace();
-//      }
-
-        cov.pageCount = 55;
-        cov.pageSize = PaperSize.A4;
-        cov.regarding = "Test fax";
-        cov.fromData.setField(PBEntryField.Name, "Werner Meißner");
-
-        cov.toData.setField(PBEntryField.Company, "Bâr GmbH & Co. KGaA");
-        cov.toData.setField(PBEntryField.FaxNumber, "87878787");
-        cov.toData.setField(PBEntryField.Location, "Foostädtle");
-        cov.toData.setField(PBEntryField.Name, "Otto Müller");
-        cov.toData.setField(PBEntryField.VoiceNumber, "4545454");
-
-        try {
-            String outName = "/tmp/test.pdf";
-            cov.makeCoverSheet(new FileOutputStream(outName));
-            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+//    // Testing code:
+//    public static void main(String[] args) throws Exception {
+//        System.out.println("Creating cover page...");
+//        Faxcover cov = new ODTFaxcover(new File("/home/jonas/test/directory with a space/test.odt").toURI().toURL());
+//
+//        cov.comments = "foo\niniun iunuini uinini ninuin iuniuniu 9889hz h897h789 bnin uibiubui ubuib uibub ubiu bib bib ib uib i \nbar";
+//        cov.fromData = new DefaultPBEntryFieldContainer();
+//        cov.toData = new DefaultPBEntryFieldContainer();
+//        cov.fromData.setField(PBEntryField.Company, "foo Ü&Ö OHG");
+//        cov.fromData.setField(PBEntryField.FaxNumber, "989898");
+//        cov.fromData.setField(PBEntryField.Location, "Bardorf");
+//        cov.fromData.setField(PBEntryField.VoiceNumber, "515616");
+//        cov.fromData.setField(PBEntryField.EMailAddress, "a@bc.de");
+//
+//        //cov.pageCount = 10;
+////      String[] docs = { "/home/jonas/mozilla.ps", "/home/jonas/nssg.pdf" };
+////      for (int i=0; i<docs.length; i++)
+////      try {
+////      System.out.println(docs[i] + " pages: " + cov.estimatePostscriptPages(new FileInputStream(docs[i])));
+////      } catch (FileNotFoundException e) {
+////      e.printStackTrace();
+////      } catch (IOException e) {
+////      e.printStackTrace();
+////      }
+//
+//        cov.pageCount = 55;
+//        cov.pageSize = PaperSize.A4;
+//        cov.regarding = "Test fax";
+//        cov.fromData.setField(PBEntryField.Name, "Werner Meißner");
+//
+//        cov.toData.setField(PBEntryField.Company, "Bâr GmbH & Co. KGaA");
+//        cov.toData.setField(PBEntryField.FaxNumber, "87878787");
+//        cov.toData.setField(PBEntryField.Location, "Foostädtle");
+//        cov.toData.setField(PBEntryField.Name, "Otto Müller");
+//        cov.toData.setField(PBEntryField.VoiceNumber, "4545454");
+//
+//        try {
+//            String outName = "/tmp/test.pdf";
+//            cov.makeCoverSheet(new FileOutputStream(outName));
+//            Runtime.getRuntime().exec(new String[] { "xpdf", outName } );
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    
 }
