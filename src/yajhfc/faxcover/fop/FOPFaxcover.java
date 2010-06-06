@@ -24,8 +24,8 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import yajhfc.faxcover.MarkupFaxcover;
+import yajhfc.file.FileFormat;
 import yajhfc.file.FileConverter.ConversionException;
-import yajhfc.file.FormattedFile.FileFormat;
 
 public class FOPFaxcover extends MarkupFaxcover {
 

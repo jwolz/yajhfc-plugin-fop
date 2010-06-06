@@ -50,8 +50,8 @@ import org.clazzes.odtransform.ZipFileURIResolver;
 
 import yajhfc.Utils;
 import yajhfc.faxcover.Faxcover;
+import yajhfc.file.FileFormat;
 import yajhfc.file.FormattedFile;
-import yajhfc.file.FormattedFile.FileFormat;
 import yajhfc.launch.Launcher2;
 import yajhfc.plugin.PluginManager;
 import yajhfc.plugin.PluginUI;

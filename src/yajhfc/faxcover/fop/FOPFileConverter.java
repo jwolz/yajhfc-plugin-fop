@@ -44,7 +44,7 @@ import org.apache.fop.apps.PageSequenceResults;
 import yajhfc.PaperSize;
 import yajhfc.Utils;
 import yajhfc.file.FileConverter;
-import yajhfc.file.FormattedFile.FileFormat;
+import yajhfc.file.FileFormat;
 
 /**
  * @author jonas
