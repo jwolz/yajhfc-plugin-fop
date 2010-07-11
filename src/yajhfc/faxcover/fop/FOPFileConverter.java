@@ -128,6 +128,9 @@ public class FOPFileConverter implements FileConverter {
             if (out != null) out.close();
         }
     }
-    
+
+    public boolean isOverridable() {
+        return true;
+    }
 
 }
