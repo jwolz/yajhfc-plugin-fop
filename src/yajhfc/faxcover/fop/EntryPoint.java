@@ -63,7 +63,7 @@ public class EntryPoint {
     
     public static final String AppShortName = "YajHFC FOP and ODT plugin";
     public static final String AppCopyright = "Copyright © 2008-2009 by Jonas Wolz";
-    public static final String AppVersion = "0.1.6";
+    public static final String AppVersion = "0.1.7";
     public static final String AuthorEMail = "jwolz@freenet.de";
     public static final String HomepageURL = "http://yajhfc.berlios.de/"; 
     
