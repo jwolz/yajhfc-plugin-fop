@@ -3,16 +3,16 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.5.0-sun"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/yajhfc"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/build/fop.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/avalon-framework-4.2.0.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/batik-all-1.7.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/commons-io-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/serializer-2.7.0.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/xalan-2.7.0.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/xercesImpl-2.7.1.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/xml-apis-ext-1.3.04.jar"/>
-	<classpathentry kind="lib" path="/data2/apps/fop-0.95/lib/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/avalon-framework-4.2.0.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/batik-all-1.7.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/serializer-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/xalan-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/xml-apis-ext-1.3.04.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/lib/xmlgraphics-commons-1.4.jar"/>
+	<classpathentry kind="lib" path="/data2/apps/fop-1.0/build/fop.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
