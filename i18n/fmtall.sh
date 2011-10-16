@@ -21,6 +21,10 @@ INNAME=FOPMessages
 RESOURCE=yajhfc.faxcover.fop.i18n.$INNAME
 DESTDIR=bin
 
+if [ ! -d $DESTDIR ]; then
+  mkdir $DESTDIR
+fi
+
 if [ -z "$1" ]; then
   echo 'Compiling language files ...'
   
