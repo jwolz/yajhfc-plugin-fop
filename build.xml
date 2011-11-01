@@ -95,18 +95,19 @@
 			<zipfileset dir="${build}" includes="*.jar" />
 			<zipfileset dir="${dist-extra}" excludes="**/*.sh"/>
 			<zipfileset dir="${dist-extra}" includes="**/*.sh" filemode="0755"/>
-			<zipfileset file="${yajhfc-jar}"/>
+			<!-- <zipfileset file="${yajhfc-jar}"/> -->
 		</zip>
 	</target>
 
 	<target name="sourcedist" depends="init,i18n" description="generate the source distribution" >
 		<zip destfile="${srczip-output}">
-			<zipfileset dir=".">
+			<zipfileset dir="." prefix="FOPPlugin/">
 				<exclude name="bin/"/>
 				<exclude name="build/"/>
 				<exclude name="**/*.jar"/>
 				<exclude name="**/*.log"/>
 				<exclude name="**/*~"/>
+				<exclude name="**/.hg/**"/>
 			</zipfileset>
 			<!-- <zipfileset dir="${src}" prefix="yajhfc/">
 				<include name="doc/faq-src/.latex2html-init"/>
