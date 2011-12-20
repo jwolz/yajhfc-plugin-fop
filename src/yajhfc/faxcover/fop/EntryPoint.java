@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.zip.ZipFile;
 
@@ -49,8 +50,10 @@ import org.clazzes.odtransform.ZipFileURIResolver;
 
 import yajhfc.Utils;
 import yajhfc.faxcover.Faxcover;
+import yajhfc.file.FileConverter;
+import yajhfc.file.FileConverterSource;
+import yajhfc.file.FileConverters;
 import yajhfc.file.FileFormat;
-import yajhfc.file.FormattedFile;
 import yajhfc.launch.Launcher2;
 import yajhfc.plugin.PluginManager;
 import yajhfc.plugin.PluginUI;
@@ -72,7 +75,12 @@ public class EntryPoint {
         Faxcover.supportedCoverFormats.put(FileFormat.FOP, FOPFaxcover.class);
         Faxcover.supportedCoverFormats.put(FileFormat.ODT, ODTFaxcover.class);
         
-        FormattedFile.fileConverters.put(FileFormat.FOP, FOPFileConverter.SHARED_INSTANCE);
+        FileConverters.addFileConverterSource(new FileConverterSource() {
+            @Override
+            public void addFileConvertersTo(Map<FileFormat, FileConverter> converters) {
+                converters.put(FileFormat.FOP, FOPFileConverter.SHARED_INSTANCE);
+            }
+        });
         
         final Action ODTtoFOAction = new ExcDialogAbstractAction() {
             @Override
