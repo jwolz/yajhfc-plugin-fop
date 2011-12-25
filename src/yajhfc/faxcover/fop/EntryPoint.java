@@ -81,6 +81,7 @@ public class EntryPoint {
                 converters.put(FileFormat.FOP, FOPFileConverter.SHARED_INSTANCE);
             }
         });
+        FileConverters.invalidateFileConverters();
         
         final Action ODTtoFOAction = new ExcDialogAbstractAction() {
             @Override
