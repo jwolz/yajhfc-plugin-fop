@@ -7,6 +7,7 @@
 	<property name="jar-extra" location="jar"/>
 	<property name="dist-extra" location="dist"/>
 	<property name="build.compiler" value="modern"/>
+	<property name="build.sysclasspath" value="ignore"/>
 
 	<property file="build.properties"/>
 	<property name="yajhfc-jar" location="../yajhfc/build/yajhfc.jar"/>
@@ -68,7 +69,7 @@
 
 	<target name="compile" depends="init" description="compile the source code" >
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}" includes="**/*.java" destdir="${build}" source="1.5" target="1.5" encoding="utf-8" debug="true" debuglevel="lines,source">
+		<javac srcdir="${src}" includes="**/*.java" destdir="${build}" source="1.5" target="1.5" encoding="iso8859-1" debug="true" debuglevel="lines,source">
 			<classpath>
 				<pathelement path="${classpath}"/>
 				<fileset refid="yajhfc-lib-jars"/>
