@@ -58,7 +58,7 @@ public class ODTFaxcover extends FOPFaxcover {
 
     protected void createTempFO() throws IOException, TransformerException, SAXException {
         foTempFile = File.createTempFile("fromodt", ".fo");
-        foTempFile.deleteOnExit();
+        yajhfc.shutdown.ShutdownManager.deleteOnExit(foTempFile);
         FileOutputStream outStream = new FileOutputStream(foTempFile);
         try {
             transformOdtToFO(getODTZipFile(), outStream);
