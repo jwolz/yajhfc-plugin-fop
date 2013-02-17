@@ -21,9 +21,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.MessageFormat;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.zip.ZipFile;
 
 import javax.swing.AbstractAction;
@@ -48,7 +46,6 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.clazzes.odtransform.ZipFileURIResolver;
 
-import yajhfc.Utils;
 import yajhfc.faxcover.Faxcover;
 import yajhfc.file.FileConverter;
 import yajhfc.file.FileConverterSource;
@@ -60,12 +57,13 @@ import yajhfc.plugin.PluginUI;
 import yajhfc.util.ExampleFileFilter;
 import yajhfc.util.ExcDialogAbstractAction;
 import yajhfc.util.ExceptionDialog;
+import yajhfc.util.MsgBundle;
 
 public class EntryPoint {
     
     public static final String AppShortName = "YajHFC FOP and ODT plugin";
     public static final String AppCopyright = "Copyright © 2008-2009 by Jonas Wolz";
-    public static final String AppVersion = "0.1.10";
+    public static final String AppVersion = "0.1.11";
     public static final String AuthorEMail = "info@yajhfc.de";
     public static final String HomepageURL = "http://www.yajhfc.de/"; 
     
@@ -246,37 +244,26 @@ public class EntryPoint {
         transformer.transform(src, res);
     }
     
-    private static boolean triedMsgLoad = false;
-    private static ResourceBundle msgs = null;
+    public static final MsgBundle msgBundle  = new MsgBundle("yajhfc.faxcover.fop.i18n.FOPMessages");
+    
+    /**
+     * Returns the translation of key. If no translation is found, the
+     * key is returned.
+     * @param key
+     * @return
+     */
     public static String _(String key) {
-        if (msgs == null)
-            if (triedMsgLoad)
-                return key;
-            else {
-                LoadMessages();
-                return _(key);
-            }                
-        else
-            try {
-                return msgs.getString(key);
-            } catch (Exception e) {
-                return key;
-            }
+        return msgBundle._(key, key);
     }
     
-    private static void LoadMessages() {
-        triedMsgLoad = true;
-        
-        // Use special handling for english locale as we don't use
-        // a ResourceBundle for it
-        if (Utils.getLocale().equals(Locale.ENGLISH)) {
-            msgs = null;
-        } else {
-            try {
-                msgs = ResourceBundle.getBundle("yajhfc.faxcover.fop.i18n.FOPMessages", Utils.getLocale());
-            } catch (Exception e) {
-                msgs = null;
-            }
-        }
+    /**
+     * Returns the translation of key. If no translation is found, the
+     * defaultValue is returned.
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static String _(String key, String defaultValue) {
+        return msgBundle._(key, defaultValue);
     }
 }
