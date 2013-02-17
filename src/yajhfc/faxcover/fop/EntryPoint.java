@@ -244,7 +244,7 @@ public class EntryPoint {
         transformer.transform(src, res);
     }
     
-    public static final MsgBundle msgBundle  = new MsgBundle("yajhfc.faxcover.fop.i18n.FOPMessages");
+    public static final MsgBundle msgBundle  = new MsgBundle("yajhfc.faxcover.fop.i18n.FOPMessages", EntryPoint.class.getClassLoader());
     
     /**
      * Returns the translation of key. If no translation is found, the
